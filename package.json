@@ -1,0 +1,23 @@
+{
+  "name": "readbot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "register": "node deploy-commands.js",
+    "dev": "node deploy-commands.js && node .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "discord.js": "^14.17.3",
+    "dotenv": "^16.4.7",
+    "openai": "^4.95.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.18.0",
+    "eslint": "^9.18.0",
+    "globals": "^15.14.0"
+  }
+}
