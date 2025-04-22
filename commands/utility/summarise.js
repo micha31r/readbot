@@ -65,6 +65,7 @@ module.exports = {
 					{ name: '200', value: 200 },
 					{ name: '500', value: 500 },
 					{ name: '1000', value: 1000 }
+					{ name: '2000', value: 2000 }
 				)
 		)
 		.addStringOption(option =>
