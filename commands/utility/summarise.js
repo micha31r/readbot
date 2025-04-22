@@ -81,7 +81,7 @@ module.exports = {
 		await interaction.editReply({ content: 'Processing request...' });
 
 		const prompt = interaction.options.getString('ask');
-		const messageLimit = interaction.options.getInteger('limit') || 20
+		const messageLimit = interaction.options.getInteger('limit') || 50
 		const visibility = interaction.options.getString('visibility') || 'private';
 
 		try {
