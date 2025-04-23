@@ -160,34 +160,38 @@ ${prompt || 'No additional question provided.'}
 				max_tokens: 5000,
 			});
 			
+			// GPT response
 			let summary = summaryResponse.choices[0].message.content;
-			let footerText = prompt ? `Prompt: ${prompt}` : 'No prompt provided.';
-			
-			// Discord has max response length restrictions
-			if (summary.length > maxResponseLength) {
-				footerText += ` Response truncated by ${summary.length - maxResponseLength} chars.`;
-				summary = summary.slice(0, maxResponseLength);
-			}
-
-			// Return an embed
-			const summaryEmbed = {
-				color: embedColor, 
-				title: `Summarised ${messages.length} Messages`,
-				description: summary,
-				footer: {
-					text: footerText,
-				},
-			};
 
 			await interaction.editReply({ content: `Summarised ${messages.length} messages.` });
-			
-			if (visibility === 'private') {
-				await interaction.editReply({ embeds: [summaryEmbed] });
-			} else {
-				// Send a follow-up message so it's public
-				await interaction.followUp({ embeds: [summaryEmbed], ephemeral: false });
+
+			// Split the summary into chunks if it exceeds the max response length
+			const splitSummary = [];
+			while (summary.length > maxResponseLength) {
+				splitSummary.push(summary.slice(0, maxResponseLength));
+				summary = summary.slice(maxResponseLength);
 			}
-			
+
+			// Add remaning summary if any
+			if (summary.length > 0) {
+				splitSummary.push(summary);
+			}
+
+			let promptMessage = prompt ? `Prompt: ${prompt}` : 'No prompt provided.';
+
+			for (let i = 0; i < splitSummary.length; i++) {
+				// Return embeds
+				const summaryEmbed = {
+					color: embedColor, 
+					title: `Summarised ${messages.length} Messages`,
+					description: splitSummary[i],
+					footer: {
+						text: promptMessage + `\nPage ${i + 1} of ${splitSummary.length}.`
+					},
+				};
+
+				await interaction.followUp({ embeds: [summaryEmbed], ephemeral: visibility === 'private' });
+			}
 		} catch (error) {
 			console.error('Error summarising messages:', error);
 			await interaction.editReply({ content: 'An error occurred while processing your request.' });
