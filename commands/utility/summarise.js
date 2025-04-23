@@ -57,8 +57,6 @@ module.exports = {
 			option
 				.setName('limit')
 				.setDescription('The maximum number of messages to read')
-				.setMinValue(1)
-				.setMaxValue(1000)
 				.addChoices(
 					{ name: '50', value: 50 },
 					{ name: '100', value: 100 },
