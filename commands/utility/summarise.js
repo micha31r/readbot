@@ -39,7 +39,7 @@ You are a helpful assistant generating Discord message summaries.
 
 ### Source Message Links:
 12. Each sentence that summarises information from the messages **should** have at least one supporting \`[source]\` link, but **limit to the most important sources (ideally ≤ 3 per bullet)**.
-13. Attach the \`[source]\` link(s) immediately after the sentence they support. If a sentence draws on multiple messages, list multiple links right after it.
+13. Attach the \`[source]\` link(s) immediately after the sentence they support. If a sentence draws on multiple messages, list multiple links right after it, separated by commas with spaces.
 14. Ignore trivial or non-informative messages (e.g., “ok”, “yes”) unless essential to the main idea.
 15. Use this exact markdown format for each link:  
    \`[source](https://discord.com/channels/guild_id/channel_id/message_id)\`
