@@ -99,6 +99,13 @@ module.exports = {
 				)
 		),
 	async execute(interaction) {
+		if (!interaction.inGuild()) {
+			// Cannot use this command in DMs
+			return await interaction.reply({
+				content: '❌ You cannot use this command in DMs.'
+			});
+		}
+
 		await interaction.deferReply({ ephemeral: true });
 		await interaction.editReply({ content: 'Processing request...' });
 
