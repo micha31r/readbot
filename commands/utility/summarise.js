@@ -157,9 +157,15 @@ module.exports = {
 			const messageContent = []
 			
 			for (const msg of messages) {
-				// Get author server alias
-				const author = await msg.guild.members.fetch(msg.author.id);
-				const nickname = author.nickname || author.user.username;
+				let nickname;
+
+				try {
+					const author = await msg.guild.members.fetch(msg.author.id);
+					nickname = author.nickname || author.user.username;
+				} catch (error) {
+					// Fallback if member is not found (i.e. left the server)
+					nickname = msg.author.username;
+				}
 
 				messageContent.push({
 					message_id: msg.id,
