@@ -8,8 +8,10 @@ dotenv.config();
 const token = process.env.DISCORD_TOKEN;
 
 const client = new Client({ intents: [
+	GatewayIntentBits.Guilds,
 	GatewayIntentBits.GuildMessages,
-	GatewayIntentBits.MessageContent
+	GatewayIntentBits.MessageContent,
+	GatewayIntentBits.GuildMembers,
 ] });
 
 client.commands = new Collection();
