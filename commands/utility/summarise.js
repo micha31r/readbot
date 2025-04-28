@@ -204,6 +204,7 @@ ${prompt || 'No additional question provided.'}
 			let summary = summaryResponse.choices[0].message.content;
 
 			await interaction.editReply({ content: `Summarised ${messages.length} messages.` });
+			await interaction.user.send(`Summarised ${messages.length} messages in \`${channel.name}\` of \`${channel.guild.name}\`.`);
 
 			// Split the summary into chunks if it exceeds the max response length
 			const splitSummary = [];
@@ -231,6 +232,7 @@ ${prompt || 'No additional question provided.'}
 				};
 
 				await interaction.followUp({ embeds: [summaryEmbed], ephemeral: visibility === 'private' });
+				await interaction.user.send({ embeds: [summaryEmbed] });
 			}
 		} catch (error) {
 			console.error('Error summarising messages:', error);
